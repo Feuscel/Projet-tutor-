@@ -1,7 +1,7 @@
-import { Ray } from "./src/modules/Ray.mjs";
 import { Wall } from "./src/modules/Wall.mjs";
+import { Particle } from "./src/modules/Particle.mjs";
 var wall;
-var ray;
+var particle;
 var config = {
     type: Phaser.WEBG,
     width: window.innerWidth,
@@ -20,6 +20,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
 var pointer = new Phaser.Input.Pointer(new Phaser.Input.InputManager(game, config), 1);
 var graphics;
 
@@ -31,19 +32,16 @@ function preload ()
 function create ()
 {
     wall = new Wall(300, 100, 300, 300);
-    ray = new Ray(100, 200);
+    particle = new Particle();
     pointer = this.input.activePointer;
     graphics = this.add.graphics();
+    // graphics.lineStyle(5, 0xFF00FF);
+    // graphics.fillStyle(0xffffff);
+
 }
 
 function update(){
     graphics.clear();
-    ray.lookAt(pointer.position.x, pointer.position.y);
-    var point = ray.cast(wall)
-    if (point){
-        const circle = new Phaser.Geom.Circle(point.x, point.y, 20)
-        graphics.strokeCircle(point.x, point.y, 20);
-    }
     wall.show(graphics);
-    ray.show(graphics);
+    particle.show(graphics);
 }

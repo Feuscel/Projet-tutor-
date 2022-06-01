@@ -1,7 +1,10 @@
 export class Ray{
-    constructor(x, y){
-        this.pos = new Phaser.Math.Vector2(x,y);
-        this.dir = new Phaser.Math.Vector2(1,0);
+    constructor(pos, angle){
+        this.pos = pos;
+        this.dir = new Phaser.Math.Vector2();
+        this.dir.setAngle(angle);
+        //this.dir.setToPolar(angle);
+        this.dir.normalize();
         this.graphics = null;
     }
 
@@ -37,9 +40,12 @@ export class Ray{
     }
 
     show(graphics) {
-        const line = new Phaser.Geom.Line(0, 0, this.dir.x * 10, this.dir.y * 10);
-        graphics.translateCanvas(this.pos.x, this.pos.y);
-        graphics.lineStyle(2, 0xffffff);
+        graphics.beginPath();
+        const line = new Phaser.Geom.Line(0, 0, this.dir.x * 10,  this.dir.y * 10);
+        //console.log(line);
+        graphics.lineStyle(5, 0xffffff);
         graphics.strokeLineShape(line);
+        graphics.moveTo(this.pos.x, this.pos.y);
+        graphics.closePath();
     }
 }
