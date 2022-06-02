@@ -6,7 +6,7 @@ export class Wall {
 
     show(graphics) {
         const line = new Phaser.Geom.Line(this.a.x, this.a.y, this.b.x, this.b.y);
-        graphics.lineStyle(2,  0xffffff);
+        graphics.lineStyle(2, 0xffffff);
         graphics.strokeLineShape(line);
     }
 }

@@ -1,9 +1,9 @@
 import { Wall } from "./src/modules/Wall.mjs";
 import { Particle } from "./src/modules/Particle.mjs";
-var wall;
+var walls = [];
 var particle;
 var config = {
-    type: Phaser.WEBG,
+    type: Phaser.WEBGL,
     width: window.innerWidth,
     height: window.innerHeight,
     physics: {
@@ -24,24 +24,45 @@ var game = new Phaser.Game(config);
 var pointer = new Phaser.Input.Pointer(new Phaser.Input.InputManager(game, config), 1);
 var graphics;
 
+function draw() {
+    graphics.clear();
+
+    for(let wall of walls) {
+        wall.show(graphics);
+    }
+    particle.look(walls, graphics);
+    particle.show(graphics);
+}
+
 function preload ()
 {
-
 }
 
 function create ()
 {
-    wall = new Wall(300, 100, 300, 300);
-    particle = new Particle();
-    pointer = this.input.activePointer;
     graphics = this.add.graphics();
-    // graphics.lineStyle(5, 0xFF00FF);
-    // graphics.fillStyle(0xffffff);
 
+    for(var i = 0; i < 5; i++) {
+        let x1 = Phaser.Math.Between(1, game.config.width);
+        let x2 = Phaser.Math.Between(1, game.config.width);
+        let y1 = Phaser.Math.Between(1, game.config.height);
+        let y2 = Phaser.Math.Between(1, game.config.height);
+        walls.push(new Wall(x1, y1, x2, y2));
+    }
+    walls.push(new Wall(0, 0, game.config.width, 0));
+    walls.push(new Wall(game.config.width, 0, game.config.width, game.config.height));
+    walls.push(new Wall(game.config.width, game.config.height, 0, game.config.height));
+    walls.push(new Wall(0, game.config.height, 0, 0));
+    
+    particle = new Particle(graphics);
+    pointer = this.input.activePointer;
+
+
+    
 }
 
 function update(){
-    graphics.clear();
-    wall.show(graphics);
-    particle.show(graphics);
+    particle.update(pointer.x, pointer.y);
+    
+    draw();
 }
