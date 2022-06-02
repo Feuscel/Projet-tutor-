@@ -1,9 +1,10 @@
 import { Ray } from "./Ray.mjs";
 export class Particle{
-    constructor(pos,intensity = 200){
+    constructor(pos,intensity = 100, power = 0.05) { 
         this.pos = new Phaser.Math.Vector2(window.innerWidth / 2, window.innerHeight / 2);
         this.rays = [];
         this.intensity = intensity;
+        this.power = power;
         for (var i = 0; i < 360; i += 0.1){
             var ray = new Ray(this.pos, i);
             this.rays.push(ray); 
@@ -41,7 +42,9 @@ export class Particle{
                 if(this.pos.distance(closest) > this.intensity){
                     var line = Phaser.Geom.Line.Extend(line, 0, -(this.pos.distance(closest) - this.intensity));
                 }
-                graphics.lineGradientStyle(1, 0xffffffff, 0xffffffff, 0xFFFFFF00, 0xFFFFFF00, 1);
+                var white = Phaser.Display.Color.GetColor32(255, 255, 255, 0);
+                var transparent = Phaser.Display.Color.GetColor32(255, 255, 255, 1)
+                graphics.lineGradientStyle(1, white, white, transparent, transparent, this.power);
                 graphics.strokeLineShape(line);
             }
         }
