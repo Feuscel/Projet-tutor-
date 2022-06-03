@@ -1,6 +1,6 @@
 import { Ray } from "./Ray.mjs";
 export class Particle{
-    constructor(pos,intensity = 100, power = 0.05) { 
+    constructor(pos, intensity = 300, power = 0.02) { 
         this.pos = new Phaser.Math.Vector2(window.innerWidth / 2, window.innerHeight / 2);
         this.rays = [];
         this.intensity = intensity;
