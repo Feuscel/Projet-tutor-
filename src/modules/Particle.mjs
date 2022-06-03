@@ -1,5 +1,11 @@
 import { Ray } from "./Ray.mjs";
 export class Particle{
+    /**
+     * Create the particle and all rays
+     * @param { Vector2 } pos 
+     * @param { number } intensity 
+     * @param { number } power 
+     */
     constructor(pos, intensity = 300, power = 0.02) { 
         this.pos = new Phaser.Math.Vector2(window.innerWidth / 2, window.innerHeight / 2);
         this.rays = [];
@@ -10,31 +16,33 @@ export class Particle{
             this.rays.push(ray); 
         }
     }
-
+    /**
+     * Update position of the particle
+     * @param { Number } x 
+     * @param { Number } y 
+     */
     update(x, y) {
         this.pos.x = x;
         this.pos.y = y;
     }
-
+    /**
+     * Check if a ray of all touch the closest wall
+     * @param { Array<Wall> } walls 
+     * @param { Graphics } graphics 
+     */
     look(walls, graphics) {
-
         for (let ray of this.rays){
             let closest = null;
             let record = Infinity;
             let d;
             for (let wall of walls) {
-                
                 var point = ray.cast(wall);
-                
                 if(point){
                     d = this.pos.distance(point);
-
                     if(d < record){
                         record = d;
                         closest = point;
                     }
-
-
                 }
             }
             if(closest){
@@ -48,9 +56,11 @@ export class Particle{
                 graphics.strokeLineShape(line);
             }
         }
-
     }
-
+    /**
+     * Show all rays
+     * @param { Graphics } graphics 
+     */
     show(graphics){
         for(let ray of this.rays){
             ray.show(graphics);

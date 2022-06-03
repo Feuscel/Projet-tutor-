@@ -1,4 +1,9 @@
 export class Ray{
+    /**
+     * Create a ray from a point and a direction
+     * @param { Vector2 } pos 
+     * @param { Number } angle 
+     */
     constructor(pos, angle){
         var rad = angle * (Math.PI/180);
         var x = Math.cos(rad);
@@ -6,7 +11,11 @@ export class Ray{
         this.pos = pos;
         this.dir = new Phaser.Math.Vector2(x, y);
     }
-
+    /**
+     * Check if the ray touch a wall
+     * @param { Wall } wall 
+     * @returns { Vector2|undefined } return the point of collision
+     */
     cast(wall) {
         const x1 = wall.a.x;
         const y1 = wall.a.y;
@@ -31,13 +40,10 @@ export class Ray{
             return;
         } 
     }
-
-    lookAt(x, y){
-        this.dir.x = x - this.pos.x;
-        this.dir.y = y - this.pos.y;
-        this.dir.normalize();
-    }
-
+    /**
+     * Show the ray
+     * @param { Graphics } graphics 
+     */
     show(graphics) {
         graphics.beginPath();
         const line = new Phaser.Geom.Line(this.pos.x, this.pos.y, this.dir.x + this.pos.x,  this.dir.y + this.pos.y);
