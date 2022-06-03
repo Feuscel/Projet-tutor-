@@ -47,7 +47,7 @@ export class Ray{
     show(graphics) {
         graphics.beginPath();
         const line = new Phaser.Geom.Line(this.pos.x, this.pos.y, this.dir.x + this.pos.x,  this.dir.y + this.pos.y);
-        graphics.lineStyle(1, 0xffffff);
+        graphics.lineStyle(10, 0xffffff);
         graphics.strokeLineShape(line);
         graphics.strokePath();
         graphics.closePath();

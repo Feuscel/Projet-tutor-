@@ -11,7 +11,7 @@ export class Particle{
         this.rays = [];
         this.intensity = intensity;
         this.power = power;
-        for (var i = 0; i < 360; i += 0.1){
+        for (var i = 0; i < 360; i += 1){
             var ray = new Ray(this.pos, i);
             this.rays.push(ray); 
         }
@@ -52,7 +52,7 @@ export class Particle{
                 }
                 var white = Phaser.Display.Color.GetColor32(255, 255, 255, 0);
                 var transparent = Phaser.Display.Color.GetColor32(255, 255, 255, 1)
-                graphics.lineGradientStyle(1, white, white, transparent, transparent, this.power);
+                graphics.lineGradientStyle(10, white, white, transparent, transparent, this.power);
                 graphics.strokeLineShape(line);
             }
         }
