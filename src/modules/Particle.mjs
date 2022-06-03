@@ -26,7 +26,7 @@ export class Particle{
         this.pos.y = y;
     }
     /**
-     * Check if a ray of all touch the closest wall
+     * Check if a ray of all rays touch the closest wall
      * @param { Array<Wall> } walls 
      * @param { Graphics } graphics 
      */
